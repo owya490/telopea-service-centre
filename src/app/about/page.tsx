@@ -1,12 +1,21 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { site } from "@/lib/site";
+import { photos, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Harry's Workshop",
   description:
-    "About Telopea Service Centre — a trusted local mechanic in Telopea known for friendly service, fair prices, and quality repairs.",
+    "About Telopea Service Centre — a licensed local mechanic in Telopea known for Harry's friendly service, fair prices, and quality repairs.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Harry's Workshop | Telopea Service Centre",
+    description:
+      "A licensed local mechanic in Telopea known for Harry's friendly service, fair prices, and quality repairs.",
+    url: "/about",
+  },
 };
+
+const gallery = [photos.workshop, photos.serviceBay];
 
 export default function AboutPage() {
   return (
@@ -26,8 +35,8 @@ export default function AboutPage() {
       <div className="mt-10 grid items-start gap-10 md:grid-cols-2">
         <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
           <Image
-            src="/images/about.jpg"
-            alt="Mechanic working on a vehicle in the workshop"
+            src={photos.storefront.src}
+            alt={photos.storefront.alt}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -48,6 +57,30 @@ export default function AboutPage() {
             inspections through to a range of mechanical repairs — which is why
             so many people treat this workshop as their trusted local mechanic.
           </p>
+        </div>
+      </div>
+
+      <div className="mt-14">
+        <h2 className="font-serif text-2xl font-bold text-brand">Our workshop</h2>
+        <p className="mt-3 max-w-2xl text-base leading-7 text-muted">
+          A local team, open six days, working on everyday cars, SUVs and 4WDs
+          in a licensed workshop.
+        </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {gallery.map((photo) => (
+            <div
+              key={photo.src}
+              className="relative aspect-[4/3] overflow-hidden rounded-lg"
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 50vw"
+              />
+            </div>
+          ))}
         </div>
       </div>
 

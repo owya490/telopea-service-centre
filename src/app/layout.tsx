@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Libre_Baskerville } from "next/font/google";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { site } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { localBusinessJsonLd } from "@/lib/json-ld";
+import { getSiteUrl, seo, site } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,13 +18,41 @@ const libre = Libre_Baskerville({
   variable: "--font-libre",
 });
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: site.name,
+    default: seo.title,
     template: `%s | ${site.name}`,
   },
-  description:
-    "Trusted local mechanics in Telopea, NSW. Competitive pricing, prompt repairs, and friendly service. Call (02) 9638 6704.",
+  description: seo.description,
+  keywords: [...seo.keywords],
+  applicationName: site.name,
+  authors: [{ name: site.name, url: siteUrl }],
+  creator: site.name,
+  publisher: site.name,
+  category: "automotive",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_AU",
+    url: "/",
+    siteName: site.name,
+    title: seo.title,
+    description: seo.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: seo.title,
+    description: seo.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport: Viewport = {
@@ -34,10 +64,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="en-AU"
       className={`${inter.variable} ${libre.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        <JsonLd data={localBusinessJsonLd()} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

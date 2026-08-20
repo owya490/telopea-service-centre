@@ -1,12 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { site } from "@/lib/site";
+import { photos, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: {
+    absolute: "Telopea Service Centre | Mechanics in Telopea, NSW",
+  },
   description:
-    "Telopea Service Centre — trusted mechanical repairs and servicing in Telopea, NSW. Competitive prices and friendly local service.",
+    "Trusted local mechanics at Evans Rd & Sturt St, Telopea. Logbook servicing, mechanical repairs, eSafety pink slips and fair prices. Call (02) 9638 6704.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Telopea Service Centre | Mechanics in Telopea, NSW",
+    description:
+      "Trusted local mechanics at Evans Rd & Sturt St, Telopea. Logbook servicing, mechanical repairs, eSafety pink slips and fair prices.",
+    url: "/",
+  },
 };
 
 const highlights = [
@@ -29,14 +38,14 @@ export default function HomePage() {
     <>
       <section className="relative min-h-[70vh] overflow-hidden">
         <Image
-          src="/images/hero.jpg"
-          alt="Mechanic working on a vehicle in a service bay"
+          src={photos.shopWide.src}
+          alt={photos.shopWide.alt}
           fill
           priority
           className="object-cover object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-brand/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand/90 via-brand/70 to-brand/40" />
         <div className="relative mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-4 py-16 sm:px-6">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/80">
             Telopea, NSW
@@ -84,14 +93,30 @@ export default function HomePage() {
             </article>
           ))}
         </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          {[photos.shopFront, photos.serviceBay, photos.harrys].map((photo) => (
+            <div
+              key={photo.src}
+              className="relative aspect-[4/3] overflow-hidden rounded-lg"
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 33vw"
+              />
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="bg-surface">
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2">
           <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
             <Image
-              src="/images/workshop.jpg"
-              alt="Mechanic servicing the underside of a car"
+              src={photos.workshop.src}
+              alt={photos.workshop.alt}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"

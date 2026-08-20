@@ -3,9 +3,16 @@ import type { Metadata } from "next";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Car Servicing, Repairs & Pink Slips",
   description:
-    "Mechanical repairs, servicing, and safety inspections at Telopea Service Centre.",
+    "Logbook servicing, mechanical repairs, eSafety checks and general maintenance for cars, SUVs and 4WDs at Telopea Service Centre.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Car Servicing, Repairs & Pink Slips | Telopea Service Centre",
+    description:
+      "Logbook servicing, mechanical repairs, eSafety checks and general maintenance in Telopea, NSW.",
+    url: "/services",
+  },
 };
 
 const services = [
